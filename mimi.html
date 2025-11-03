@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="T4M!">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-512.png">
+    <link rel="stylesheet" href="t4m.css">
+    <title>T4M!</title>
+</head>
+<body>
+    <div class="container">
+        <h1>T4M!</h1>       
+        <div class="cards-grid" id="cardsGrid"></div>
+    </div>
+    <script>
+        const cards = [
+            { text: "SI", icon: "✅" },
+            { text: "NO", icon: "❌" },
+            { text: "SONO CONFUSA", icon: "🤨​" },
+            { text: "SONO OVERWHELMED", icon: "🫨​" },
+            { text: "SONO OVERSTIMULATED", icon: "😖🤯" },
+            { text: "HO BISOGNO DI ALONE TIME", icon: "😶‍🌫️​" },
+            { text: "HO BISOGNO DI ALONE TIME MA PUOI STARMI VICINA", icon: "​​👥​​🤝" },
+            { text: "PUOI STARMI VICINO", icon: "​👥​" },
+            { text: "PREFERIREI NON AVERTI VICINA", icon: "🦦​↔️🦝​" },
+            { text: "NON HO VOGLIA DI CONTATTO FISICO", icon: "🫂🙅🚫" },
+            { text: "GRATTINI PLIS", icon: "🥺" },
+            { text: "HO SETE", icon: "💧" },
+            { text: "HO FAME", icon: "🍽️" },
+            { text: "HO SONNO", icon: "😴" },
+            { text: "SONO PSICOLOGICAMENTE A TERRA", icon: "😕" },
+            { text: "STO AVENDO UN ATTACCO DI PANICO", icon: "🆘" },
+            { text: "MI VIENE DA VOMITARE", icon: "🤢" },
+            { text: "HO BISOGNO DI COMFORT FOOD", icon: "🍲" },
+            { text: "HO BISOGNO DI RASSICURAZIONI", icon: "👩‍❤️‍👩💕" },
+            { text: "RESPIRIAMO INSIEME?", icon: "👩‍❤️‍👩🫁" },
+            { text: "HO BISOGNO DI PRENDERE ARIA", icon: "🌬️" },
+            { text: "CAMMINIAMO?", icon: "🚶👩‍❤️‍👩" },
+            { text: "NON MI PIACE", icon: "👎😣​" },
+            { text: "MI PIACE", icon: "👍🥹​" },
+            { text: "HO BISOGNO DI SCREEN TIME", icon: "📱" },
+            { text: "MI VIENE DA PIANGERE", icon: "😢" },
+            { text: "PREFERISCO SCRIVERTI", icon: "✏️" },
+            { text: "PREFERISCO NON SCRIVERTI", icon: "✏️🚫" },
+            { text: "NON VOGLIO PARLARNE, MAGARI DOPO", icon: "​🗣️🚫​⏳" },
+            { text: "POTRESTI SMETTERE?", icon: "😑🫸​" },
+            { text: "NON MI SENTO MOLTO BENE FISICAMENTE", icon: "🤒" },
+            { text: "NON MI SENTO MOLTO BENE PSICOLOGICAMENTE", icon: "😥​" },
+            { text: "HO BISOGNO DI SILENZIO", icon: "🤫" },
+            { text: "VORREI ANDARMENE DA QUI", icon: "🏃💨​" },
+            { text: "ANDIAMO VIA?", icon: "🚗" }
+        ];
+        let selectedCard = null;
+        function renderCards() {
+            const grid = document.getElementById('cardsGrid');
+            grid.innerHTML = '';          
+            cards.forEach((card, index) => {
+                const cardEl = document.createElement('div');
+                cardEl.className = 'card';
+                if (selectedCard === index) {
+                    cardEl.classList.add('selected');
+                }
+                cardEl.innerHTML = `
+                    <div class="icon">${card.icon}</div>
+                    <div class="text">${card.text}</div>
+                `;
+                cardEl.onclick = () => selectCard(index);
+                grid.appendChild(cardEl);
+            });
+        }
+        function selectCard(index) {
+            if (selectedCard === index) {
+                selectedCard = null;
+            } else {
+                selectedCard = index;
+            }
+            renderCards();
+        }
+        renderCards();
+    </script>
+</body>
+</html>
