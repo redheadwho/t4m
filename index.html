@@ -10,7 +10,7 @@
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="icon-512.png">
     <title>T4M!</title>
-    <style>
+   <style>
         *{
             margin: 0;
             padding: 0;
@@ -37,6 +37,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 20px;
+            margin-bottom: 30px;
         }        
         .card {
             background: white;
@@ -69,7 +70,74 @@
             font-weight: 600;
             text-align: center;
             line-height: 1.4;
-        }       
+        }
+        .button-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 15px 40px;
+            font-size: 1.2em;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+        }
+        .btn:active {
+            transform: translateY(0);
+        }
+        .btn-confirm {
+            background: #10b981;
+            color: white;
+        }
+        .btn-clear {
+            background: #ef4444;
+            color: white;
+        }
+        .btn-back {
+            background: white;
+            color: #667eea;
+        } 
+        .page {
+            display: none;
+        }
+        .page.active {
+            display: block;
+        }
+        .result-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }  
+        .result-icon {
+            font-size: 3.5em;
+            line-height: 1;
+        }        
+        .result-text {
+            font-size: 1.3em;
+            font-weight: 600;
+            line-height: 1.4;
+        }    
+        .no-selection {
+            text-align: center;
+            color: white;
+            font-size: 1.5em;
+            margin-top: 50px;
+        }    
         @media (max-width: 768px) {
             .cards-grid {
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -88,13 +156,40 @@
             h1 {
                 font-size: 1.8em;
             }
+            .btn {
+                padding: 12px 30px;
+                font-size: 1em;
+            }
+            .result-card {
+                padding: 20px;
+                gap: 15px;
+            }
+            .result-icon {
+                font-size: 2.5em;
+            }
+            .result-text {
+                font-size: 1.1em;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>T4M!</h1>       
-        <div class="cards-grid" id="cardsGrid"></div>
+        <div id="selectionPage" class="page active">
+            <h1>T4M!</h1>       
+            <div class="cards-grid" id="cardsGrid"></div>
+            <div class="button-container">
+                <button class="btn btn-clear" onclick="clearSelection()">Deseleziona Tutto</button>
+                <button class="btn btn-confirm" onclick="confirmSelection()">Conferma Selezione</button>
+            </div>
+        </div>
+        <div id="resultPage" class="page">
+            <h1>Le Tue Scelte</h1>
+            <div id="resultContainer"></div>
+            <div class="button-container">
+                <button class="btn btn-back" onclick="goBack()">Torna alla Selezione</button>
+            </div>
+        </div>
     </div>
     <script>
         const cards = [
@@ -134,35 +229,63 @@
             { text: "VORREI ANDARMENE DA QUI", icon: "🏃💨​" },
             { text: "ANDIAMO VIA?", icon: "🚗" }
         ];
-        let selectedCard = null;
+        let selectedCards = [];
         function renderCards() {
             const grid = document.getElementById('cardsGrid');
             grid.innerHTML = '';          
             cards.forEach((card, index) => {
                 const cardEl = document.createElement('div');
                 cardEl.className = 'card';
-                if (selectedCard === index) {
+                if (selectedCards.includes(index)) {
                     cardEl.classList.add('selected');
                 }
                 cardEl.innerHTML = `
                     <div class="icon">${card.icon}</div>
                     <div class="text">${card.text}</div>
                 `;
-                cardEl.onclick = () => selectCard(index);
+                cardEl.onclick = () => toggleCard(index);
                 grid.appendChild(cardEl);
             });
-        }
-        function selectCard(index) {
-            if (selectedCard === index) {
-                selectedCard = null;
+        }     
+        function toggleCard(index) {
+            const cardIndex = selectedCards.indexOf(index);
+            if (cardIndex > -1) {
+                selectedCards.splice(cardIndex, 1);
             } else {
-                selectedCard = index;
+                selectedCards.push(index);
             }
             renderCards();
+        }        
+        function clearSelection() {
+            selectedCards = [];
+            renderCards();
+        }        
+        function confirmSelection() {
+            if (selectedCards.length === 0) {
+                return;
+            }            
+            const resultContainer = document.getElementById('resultContainer');
+            resultContainer.innerHTML = '';
+            
+            selectedCards.sort((a, b) => a - b);          
+            selectedCards.forEach(index => {
+                const card = cards[index];
+                const resultCard = document.createElement('div');
+                resultCard.className = 'result-card';
+                resultCard.innerHTML = `
+                    <div class="result-icon">${card.icon}</div>
+                    <div class="result-text">${card.text}</div>
+                `;
+                resultContainer.appendChild(resultCard);
+            });            
+            document.getElementById('selectionPage').classList.remove('active');
+            document.getElementById('resultPage').classList.add('active');
+        }        
+        function goBack() {
+            document.getElementById('resultPage').classList.remove('active');
+            document.getElementById('selectionPage').classList.add('active');
         }
         renderCards();
     </script>
 </body>
 </html>
-
-
