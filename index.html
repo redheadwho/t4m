@@ -23,7 +23,7 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             overflow-x: hidden;
-            padding-bottom: env(safe-area-inset-bottom);
+            padding-bottom: 0;
         }
         
         .container {
@@ -37,7 +37,8 @@
             top: 0;
             background: rgba(102, 126, 234, 0.95);
             backdrop-filter: blur(10px);
-            padding: 15px 20px;
+            padding: 10px 15px;
+            padding-top: max(10px, env(safe-area-inset-top));
             z-index: 100;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
@@ -45,32 +46,32 @@
         h1 {
             text-align: center;
             color: white;
-            font-size: 1.8em;
+            font-size: 1.5em;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
         
         .search-container {
             position: relative;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
         
         .search-input {
             width: 100%;
-            padding: 12px 40px 12px 15px;
+            padding: 10px 35px 10px 12px;
             border: none;
-            border-radius: 25px;
-            font-size: 16px;
+            border-radius: 20px;
+            font-size: 15px;
             background: white;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         
         .search-icon {
             position: absolute;
-            right: 15px;
+            right: 12px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 1.2em;
+            font-size: 1.1em;
             color: #667eea;
         }
         
@@ -142,17 +143,20 @@
         }
         
         .swipe-container {
-            padding: 20px;
-            min-height: calc(100vh - 250px);
+            padding: 15px;
+            min-height: calc(100vh - 280px);
+            display: flex;
+            flex-direction: column;
         }
         
         .card-stack {
             position: relative;
             width: 100%;
-            max-width: 400px;
+            max-width: 380px;
             margin: 0 auto;
-            height: 500px;
+            height: 480px;
             perspective: 1000px;
+            flex-shrink: 0;
         }
         
         .card {
@@ -160,18 +164,18 @@
             width: 100%;
             background: white;
             border-radius: 20px;
-            padding: 40px 30px;
+            padding: 30px 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 25px;
+            gap: 20px;
             touch-action: none;
             user-select: none;
-            transition: transform 0.3s, opacity 0.3s, box-shadow 0.3s;
+            transition: transform 0.15s ease-out, opacity 0.15s ease-out, box-shadow 0.15s;
             cursor: grab;
-            min-height: 400px;
+            min-height: 380px;
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
@@ -204,15 +208,15 @@
         }
         
         .icon {
-            font-size: 5em;
+            font-size: 4em;
             line-height: 1;
         }
         
         .text {
-            font-size: 1.3em;
+            font-size: 1.15em;
             font-weight: 600;
             text-align: center;
-            line-height: 1.4;
+            line-height: 1.3;
             color: #333;
         }
         
@@ -220,10 +224,10 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 2.5em;
+            font-size: 2em;
             color: white;
-            opacity: 0.5;
-            transition: all 0.2s;
+            opacity: 0.4;
+            transition: all 0.15s;
             pointer-events: none;
             font-weight: 800;
             text-transform: uppercase;
@@ -232,28 +236,28 @@
         }
         
         .swipe-indicator.left {
-            left: 20px;
+            left: 15px;
         }
         
         .swipe-indicator.right {
-            right: 20px;
+            right: 15px;
         }
         
         .card.show-left .swipe-indicator.left {
             opacity: 1;
             color: #ef4444;
-            transform: translateY(-50%) scale(1.2);
+            transform: translateY(-50%) scale(1.3);
         }
         
         .card.show-right .swipe-indicator.right {
             opacity: 1;
             color: #10b981;
-            transform: translateY(-50%) scale(1.2);
+            transform: translateY(-50%) scale(1.3);
         }
         
         .btn {
-            padding: 15px 30px;
-            font-size: 1.1em;
+            padding: 12px 25px;
+            font-size: 1em;
             font-weight: 600;
             border: none;
             border-radius: 50px;
@@ -262,7 +266,7 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
         
         .btn:active {
@@ -282,8 +286,8 @@
         .btn-confirm {
             background: #667eea;
             color: white;
-            font-size: 1.2em;
-            padding: 18px 40px;
+            font-size: 1.05em;
+            padding: 14px 30px;
         }
         
         .btn-back {
@@ -300,9 +304,9 @@
         .counter {
             text-align: center;
             color: white;
-            font-size: 1.2em;
+            font-size: 1em;
             font-weight: 600;
-            margin-top: 20px;
+            margin-top: 15px;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
         }
         
@@ -315,18 +319,19 @@
         }
         
         .result-list {
-            padding: 20px;
+            padding: 15px;
+            padding-bottom: 100px;
         }
         
         .review-card {
             background: white;
             border-radius: 15px;
-            padding: 20px;
+            padding: 15px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 15px;
             animation: slideIn 0.3s ease-out;
             position: relative;
         }
@@ -379,15 +384,15 @@
         }
         
         .result-icon {
-            font-size: 2.5em;
+            font-size: 2em;
             line-height: 1;
             flex-shrink: 0;
         }
         
         .result-text {
-            font-size: 1.1em;
+            font-size: 0.95em;
             font-weight: 600;
-            line-height: 1.4;
+            line-height: 1.3;
             color: #333;
         }
         
@@ -405,11 +410,11 @@
             right: 0;
             background: rgba(102, 126, 234, 0.95);
             backdrop-filter: blur(10px);
-            padding: 15px 20px;
-            padding-bottom: calc(15px + env(safe-area-inset-bottom));
+            padding: 12px 15px;
+            padding-bottom: max(12px, env(safe-area-inset-bottom));
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 12px;
             box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
             flex-wrap: wrap;
         }
@@ -647,10 +652,10 @@
             
             card.style.transform = `translate(calc(-50% + ${diffX}px), calc(-50% + ${diffY}px)) rotate(${diffX * 0.1}deg)`;
             
-            if (diffX < -50) {
+            if (diffX < -30) {
                 card.classList.add('show-left');
                 card.classList.remove('show-right');
-            } else if (diffX > 50) {
+            } else if (diffX > 30) {
                 card.classList.add('show-right');
                 card.classList.remove('show-left');
             } else {
@@ -674,9 +679,9 @@
             
             card.classList.remove('swiping');
             
-            if (diffX < -100) {
+            if (diffX < -60) {
                 swipeCard(false);
-            } else if (diffX > 100) {
+            } else if (diffX > 60) {
                 swipeCard(true);
             } else {
                 card.style.transform = 'translate(-50%, -50%)';
@@ -692,7 +697,7 @@
                 selectedCards.push(filteredCards[currentIndex]);
             }
             
-            card.style.transition = 'transform 0.3s, opacity 0.3s';
+            card.style.transition = 'transform 0.2s ease-out, opacity 0.2s ease-out';
             card.style.transform = `translate(${select ? '200%' : '-200%'}, -50%) rotate(${select ? '30deg' : '-30deg'})`;
             card.style.opacity = '0';
             
@@ -707,7 +712,7 @@
                 }
                 renderCards();
                 updateSelectedCount();
-            }, 300);
+            }, 200);
         }
         
         function updateCounter() {
